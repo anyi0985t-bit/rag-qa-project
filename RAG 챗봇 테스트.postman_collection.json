@@ -1,0 +1,280 @@
+{
+  "info": {
+    "_postman_id": "8f93103e-12e4-47b9-849c-fbc8a9374009",
+    "name": "RAG 챗봇 테스트",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "40480716"
+  },
+  "item": [
+    {
+      "name": "01_기준선_수수료질문",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"답변에 정확한 수수료 숫자가 포함되어야 함\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.answer).to.include(\"40%\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"상태 코드는 200이어야 함\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"answer 필드가 존재하고 비어있지 않아야 함\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.answer).to.be.a(\"string\").and.not.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/chat?question=별풍선 수수료는 얼마야?",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "chat"
+          ],
+          "query": [
+            {
+              "key": "question",
+              "value": "별풍선 수수료는 얼마야?"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "02_희귀단어없는질문_별풍선얼마야",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"상태 코드는 200이어야 함\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"answer 필드가 존재하고 비어있지 않아야 함\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.answer).to.be.a(\"string\").and.not.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/chat?question=별풍선 얼마야?",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "chat"
+          ],
+          "query": [
+            {
+              "key": "question",
+              "value": "별풍선 얼마야?"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "03_조사차이_별풍선은얼마야",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"상태 코드는 200이어야 함\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"answer 필드가 존재하고 비어있지 않아야 함\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.answer).to.be.a(\"string\").and.not.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/chat?question=별풍선은 얼마야?",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "chat"
+          ],
+          "query": [
+            {
+              "key": "question",
+              "value": "별풍선은 얼마야?"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "04_빈질문",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"빈 질문은 400 에러가 나야 함\", function () {\r",
+              "    pm.response.to.have.status(400);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/chat?question=  ",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "chat"
+          ],
+          "query": [
+            {
+              "key": "question",
+              "value": "  "
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "05_문서에없는질문_창시자",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"상태 코드는 200이어야 함\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"answer 필드가 존재하고 비어있지 않아야 함\", function () {\r",
+              "    const body = pm.response.json();\r",
+              "    pm.expect(body.answer).to.be.a(\"string\").and.not.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8000/chat?question=별풍선 창시자가 누구야?",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "chat"
+          ],
+          "query": [
+            {
+              "key": "question",
+              "value": "별풍선 창시자가 누구야?"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

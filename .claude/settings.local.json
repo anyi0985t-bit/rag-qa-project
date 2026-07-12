@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"/c/Users/anyi0/.claude/projects/C--rag-practice/\" 2>&1)"
+    ]
+  }
+}
